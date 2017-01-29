@@ -4,5 +4,5 @@
 #export PKG_CONFIG_PATH
 
 all:
-	g++ -o manos main.cpp myImage.cpp handGesture.cpp roi.cpp  `pkg-config --cflags --libs opencv` 
+	g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp  `pkg-config --cflags --libs opencv` 
 

@@ -1,3 +1,6 @@
+/*Bookstore in which it is verified defects of convexity,
+also check that the tips of the fingers have a sufficient separation so as not to confuse them ,
+and writes the resltados of the calculation in the Image*/
 #include "handGesture.hpp"
 #include <opencv2/imgproc/imgproc.hpp>
 #include<opencv2/opencv.hpp>
@@ -83,7 +86,7 @@ float HandGesture::distanceP2P(Point a, Point b){
 	return d;
 }
 
-// quita las puntas de los dedos que están demasiado cerca de el uno al otro
+//Remove fingertips that are too close to eachother
 void HandGesture::removeRedundantFingerTips(){
 	vector<Point> newFingers;
 	for(int i=0;i<fingerTips.size();i++){
@@ -125,7 +128,7 @@ void HandGesture::addFingerNumberToVector(){
 	fingerNumbers.push_back(i);
 }
 
-//agrega el número calculado de dedos a la imagen m-> src
+//Add the calculated number of fingers to image m->src
 void HandGesture::addNumberToImg(MyImage *m){
 	int xPos=10;
 	int yPos=10;
@@ -143,8 +146,7 @@ void HandGesture::addNumberToImg(MyImage *m){
 	}
 }
 
-// calcular el número más frecuente de dedos
-// más de 20 cuadros
+// Calculate most frequent numbers of fingers over 20 frames
 void HandGesture::getFingerNumber(MyImage *m){
 	removeRedundantFingerTips();
 	if(bRect.height > m->src.rows/2 && nrNoFinger>12 && isHand ){
@@ -200,7 +202,7 @@ void HandGesture::eleminateDefects(MyImage *m){
 	removeRedundantEndPoints(defects[cIdx], m);
 }
 
-// eliminar el punto final de los defectos de convexidad si están a la misma punta del dedo
+// Remove endpoint of convexity defects if they are at the same fingertip
 void HandGesture::removeRedundantEndPoints(vector<Vec4i> newDefects,MyImage *m){
 	Vec4i temp;
 	float avgX, avgY;
@@ -223,8 +225,7 @@ void HandGesture::removeRedundantEndPoints(vector<Vec4i> newDefects,MyImage *m){
 	}
 }
 
-//comprueba si hay un dedo 
-//Comprobar cuando no hay defectos de convexidad
+// Convexity defects does not check for one finger so another method has to check when there are no convexity defects
 void HandGesture::checkForOneFinger(MyImage *m){
 	int yTol=bRect.height/6;
 	Point highestP;

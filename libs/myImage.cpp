@@ -1,3 +1,4 @@
+//We get the image during processing
 #include "myImage.hpp"
 #include <opencv2/imgproc/imgproc.hpp>
 #include<opencv2/opencv.hpp>
@@ -11,7 +12,7 @@ using namespace cv;
 
 MyImage::MyImage(){
 }
-
+//Start Web Camera
 MyImage::MyImage(int webCamera){
 	cameraSrc=webCamera;
 	cap=VideoCapture(webCamera);

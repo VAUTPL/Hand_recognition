@@ -1,17 +1,17 @@
-/*##########################################################################################
-#					  UNIVERSIDAD TECNICA PARTICULAR DE LOJA							 #
-#....................................................................................... #
-#DEVELOPMENT OF AN APPLICATION FOR FACIAL RECOGNITION USING THE ALGORITHM FISHERFACES	 #
-#																						 #
-#Authors: Carlos Saca (cfsaca@utpl.edu.ec), Critian Ortiz (ceortiz2@utpl.edu.ec)		 #
-#Professor: Ing. Luis Rodrigo Barba							   							 #
-#Date: 16/01/2017																		 #
-#........................................................................................#
-#System Requirements:																	 #
-#Ubuntu: 16.4																			 #
-#Python: 2.7+																			 #
-#OpenCv: 3.0.0															 				 #
-##########################################################################################*/
+//////////////////////////////////////////////////////////////////////////////////
+//		UNIVERSIDAD TECNICA PARTICULAR DE LOJA 				//
+//										//
+//	DEVELOPMENT OF AN APPLICATION FOR THE RECOGNITION O HHAND GESTURE	//
+//Author:    Carlos Saca (cfsaca@gmail.com)					//
+//Professor: Ing. Luis Rodrigo Barba						//
+//Date: 16/01/2017								//
+//..............................................................................//			
+//System Requeriments: 								//
+//Ubuntu: 16.4									//
+//g++   : Integratedd on Linux							//
+//OpenCv: 3.0.0									//							
+//////////////////////////////////////////////////////////////////////////////////
+
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/imgproc/types_c.h"
 #include "opencv2/highgui/highgui_c.h"
@@ -20,17 +20,17 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
-#include "myImage.hpp"
-#include "roi.hpp"
-#include "handGesture.hpp"
+#include "libs/myImage.hpp"
+#include "libs/roi.hpp"
+#include "libs/handGesture.hpp"
 #include <vector>
 #include <cmath>
-#include "main.hpp"
+#include "libs/main.hpp"
 
 using namespace cv;
 using namespace std;
 
-/* Bariables Globales  */
+/*Globals Variable  */
 int fontFace = FONT_HERSHEY_PLAIN;
 int square_len;
 int avgColor[NSAMPLES][3] ;
@@ -47,14 +47,14 @@ vector <My_ROI> roi;
 vector <KalmanFilter> kf;
 vector <Mat_<float> > measurement;
 
-/* Fin de las Bariables globales */
+/* End of the Global Variables */
 
 void init(MyImage *m){
 	square_len=20;
 	iSinceKFInit=0;
 }
 
-// cambia un color de un espacio a otro
+//Changes the color from one space on another
 void col2origCol(int hsv[3], int bgr[3], Mat src){
 	Mat avgBGRMat=src.clone();	
 	for(int i=0;i<3;i++){
@@ -89,7 +89,7 @@ void waitForPalmCover(MyImage* m){
 		for(int j=0;j<NSAMPLES;j++){
 			roi[j].draw_rectangle(m->src);
 		}
-		string imgText=string("Su mano con los rectagulos");
+		string imgText=string("Put your hand on de rectangles");
 		printText(m->src,imgText);	
 		
 
@@ -119,7 +119,7 @@ void getAvgColor(MyImage *m,My_ROI roi,int avg[3]){
 	vector<int>hm;
 	vector<int>sm;
 	vector<int>lm;
-	// Generando venctores
+	//Generate Vectors
 	for(int i=2; i<r.rows-2; i++){
     	for(int j=2; j<r.cols-2; j++){
     		hm.push_back(r.data[r.channels()*(r.cols*i + j) + 0]) ;
@@ -131,7 +131,7 @@ void getAvgColor(MyImage *m,My_ROI roi,int avg[3]){
 	avg[1]=getMedian(sm);
 	avg[2]=getMedian(lm);
 }
-
+//Recgnizign the average color of the hand
 void average(MyImage *m){
 	m->cap >> m->src;
 	flip(m->src,m->src,1);
@@ -171,14 +171,14 @@ void initTrackbars(){
 
 
 void normalizeColors(MyImage * myImage){
-	// copia todos los límites leídos de trackbar a todos los límites diferentes
+	// copy all boundries read from trackbar to all of the different boundries
 	for(int i=1;i<NSAMPLES;i++){
 		for(int j=0;j<3;j++){
 			c_lower[i][j]=c_lower[0][j];	
 			c_upper[i][j]=c_upper[0][j];	
 		}	
 	}
-	// normaliza todos los límites de modo que el umbral esté dentro de 0-255
+	// normalize all boundries so that threshold is whithin 0-255
 	for(int i=0;i<NSAMPLES;i++){
 		if((avgColor[i][0]-c_lower[i][0]) <0){
 			c_lower[i][0] = avgColor[i][0] ;
@@ -306,7 +306,7 @@ void makeContours(MyImage *m, HandGesture* hg){
 	}
 }
 
-//Capturamos la imagen.
+//We capture de image.
 int main(){
 	MyImage m(0);		
 	HandGesture hg;
