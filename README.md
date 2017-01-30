@@ -14,9 +14,10 @@
 This project involves a research in object detection and intoning contours, to apply them in the detection of the hand and that in turn you detect the gestures of the hands. Is developed in C ++ and OpenCV 3.0 API. The code is free to be used and modified by anyone who wishes to do so. It was designed with the purpose of detecting a hand and recognizing how many fingers it has lifted.
 
 
-###System Requirements
+###Minimum system requirements
 ====================
 •Ubuntu 16.4
+
 • An i3 or better processor. The faster the better, especially at high video resolutions.
 
 • 2 GB or more RAM.
