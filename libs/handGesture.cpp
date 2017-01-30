@@ -3,7 +3,7 @@ also check that the tips of the fingers have a sufficient separation so as not t
 and writes the resltados of the calculation in the Image*/
 #include "handGesture.hpp"
 #include <opencv2/imgproc/imgproc.hpp>
-#include<opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,16 +51,16 @@ void HandGesture::printGestureInfo(Mat src){
 	int ypos=src.rows/1.6;
 	float fontSize=1.0f;
 	int lineChange=14;
-	string info= "Informacion de la Mano: ";
+	string info= "Hand Information: ";
 	putText(src,info,Point(ypos,xpos),fontFace,fontSize,fColor);
 	xpos+=lineChange;
-	info=string("Defectos: ") + string(intToString(nrOfDefects)) ;
+	info=string("Defects: ") + string(intToString(nrOfDefects)) ;
 	putText(src,info,Point(ypos,xpos),fontFace,fontSize  ,fColor);
 	xpos+=lineChange;
-	info=string("Alto y ancho, caja: ") + string(intToString(bRect_height)) +string("px") +string(" , ") +string("px") +string(intToString(bRect_width)) ;
+	info=string("High and wide box: ") + string(intToString(bRect_height)) +string("px") +string(" , ") +string("px") +string(intToString(bRect_width)) ;
 	putText(src,info,Point(ypos,xpos),fontFace,fontSize ,fColor);
 	xpos+=lineChange;
-	info=string("Es la mano: ") + string(bool2string(isHand));
+	info=string("Is hand: ") + string(bool2string(isHand));
 	putText(src,info,Point(ypos,xpos),fontFace,fontSize  ,fColor);
 }
 
@@ -80,7 +80,7 @@ bool HandGesture::detectIfHand(){
 	}	
 	return isHand;
 }
-
+//It ensures that the fingers are a sufficient distance
 float HandGesture::distanceP2P(Point a, Point b){
 	float d= sqrt(fabs( pow(a.x-b.x,2) + pow(a.y-b.y,2) )) ;  
 	return d;
