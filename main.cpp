@@ -2,7 +2,7 @@
 //		UNIVERSIDAD TECNICA PARTICULAR DE LOJA 									//
 //																				//
 //	DEVELOPMENT OF AN APPLICATION FOR THE RECOGNITION O HHAND GESTURE			//
-//Author:    Carlos Saca (cfsaca@utpl.edu.ec.com)										//
+//Author:    Carlos Saca (cfsaca@utpl.edu.ec)										//
 //Professor: Ing. Luis Rodrigo Barba											//
 //Date: 16/01/2017																//
 //..............................................................................//			
