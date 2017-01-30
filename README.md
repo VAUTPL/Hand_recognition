@@ -35,18 +35,21 @@ From a command line in the folder of the repository:
 
 First you have to compile main.cpp
 
-This line already includes in the makefile
 
- `g++ -o manos main.cpp myImage.cpp handGesture.cpp roi.cpp 'pkg-config --cflags --libs opencv'`
+To compile we have two options:
+Option N1:
+This line is already included in the makefile
 
+`$  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp 'pkg-config --cflags --libs opencv'`
 
-Compile.
+Option N2:
 
-make
+`$ make`
+
 
 Then you can run main
 
-`./manos`
+`$ ./manos`
 
 #Star Recognition.
 
