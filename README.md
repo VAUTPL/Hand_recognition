@@ -1,7 +1,7 @@
 ##UNIVERSIDAD TECNICA PARTICULAR DE LOJA
-
-###Professor
 --------------
+###Professor
+
 •Rodrigo Barba (lrbarba@utpl.edu.ec)
 
 ###Student:
@@ -9,11 +9,12 @@
 •Carlos Saca(cfsaca@utpl.edu.ec)
 
 ###HAND_RECOGNITION
+====================
 This project involves a research in object detection and intoning contours, to apply them in the detection of the hand and that in turn you detect the gestures of the hands. Is developed in C ++ and OpenCV 3.0 API. The code is free to be used and modified by anyone who wishes to do so. It was designed with the purpose of detecting a hand and recognizing how many fingers it has lifted.
 
 
 ###System Requirements
-
+====================
 •Ubuntu 16.4
 • An i3 or better processor. The faster the better, especially at high video resolutions.
 
@@ -22,7 +23,7 @@ This project involves a research in object detection and intoning contours, to a
 • At least 100 MB Free Disk space Ubuntu 16.04 or later.
 
 ###Instalation OpenCv
-
+====================
 1.  First, one should install the following libraries:
 
 `◦ OpenCV version 3.2 from https://github.com/opencv/opencv and OpenCV Extra Modules from https://github.com/opencv/opencv_contrib, following the respective instructions for the installation of the extra modules.`
@@ -57,7 +58,7 @@ Then you can run main
 `$ ./manos`
 
 ###Start Recognition.
-
+====================
 •First put your hand on the rectangles that are drawn on the screen.
 
 •Another window opens, contour detection and hand detection begins.
