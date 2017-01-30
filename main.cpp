@@ -1,15 +1,15 @@
 //////////////////////////////////////////////////////////////////////////////////
-//		UNIVERSIDAD TECNICA PARTICULAR DE LOJA 				//
-//										//
-//	DEVELOPMENT OF AN APPLICATION FOR THE RECOGNITION O HHAND GESTURE	//
-//Author:    Carlos Saca (cfsaca@gmail.com)					//
-//Professor: Ing. Luis Rodrigo Barba						//
-//Date: 16/01/2017								//
+//		UNIVERSIDAD TECNICA PARTICULAR DE LOJA 									//
+//																				//
+//	DEVELOPMENT OF AN APPLICATION FOR THE RECOGNITION O HHAND GESTURE			//
+//Author:    Carlos Saca (cfsaca@utpl.edu.ec.com)										//
+//Professor: Ing. Luis Rodrigo Barba											//
+//Date: 16/01/2017																//
 //..............................................................................//			
-//System Requeriments: 								//
-//Ubuntu: 16.4									//
-//g++   : Integratedd on Linux							//
-//OpenCv: 3.0.0									//							
+//System Requeriments: 															//
+//Ubuntu: 16.4																	//
+//g++   : Integratedd on Linux													//
+//OpenCv: 3.2.0																	//							
 //////////////////////////////////////////////////////////////////////////////////
 
 #include "opencv2/imgproc/imgproc.hpp"
@@ -54,7 +54,8 @@ void init(MyImage *m){
 	iSinceKFInit=0;
 }
 
-//Changes the color from one space on another
+
+//Change the color from one space to another, so you do not get confused with your fingers
 void col2origCol(int hsv[3], int bgr[3], Mat src){
 	Mat avgBGRMat=src.clone();	
 	for(int i=0;i<3;i++){
@@ -70,7 +71,7 @@ void printText(Mat src, string text){
 	int fontFace = FONT_HERSHEY_PLAIN;
 	putText(src,text,Point(src.cols/2, src.rows/10),fontFace, 1.2f,Scalar(200,0,0),2);
 }
-
+//Initialize the library Roi, to cover the palm of the hand with rectangles in this area will be guarded the middle color of the hand
 void waitForPalmCover(MyImage* m){
     m->cap >> m->src;
 	flip(m->src,m->src,1);
@@ -99,7 +100,7 @@ void waitForPalmCover(MyImage* m){
 	break;
 	}
 }
-
+//We calculated the average hand size
 int getMedian(vector<int> val){
   int median;
   size_t size = val.size();
@@ -112,14 +113,13 @@ int getMedian(vector<int> val){
   return median;
 }
 
-
 void getAvgColor(MyImage *m,My_ROI roi,int avg[3]){
 	Mat r;
 	roi.roi_ptr.copyTo(r);
 	vector<int>hm;
 	vector<int>sm;
 	vector<int>lm;
-	//Generate Vectors
+	//Generate vectors that govern recognition and movement of hands
 	for(int i=2; i<r.rows-2; i++){
     	for(int j=2; j<r.cols-2; j++){
     		hm.push_back(r.data[r.channels()*(r.cols*i + j) + 0]) ;
@@ -131,7 +131,8 @@ void getAvgColor(MyImage *m,My_ROI roi,int avg[3]){
 	avg[1]=getMedian(sm);
 	avg[2]=getMedian(lm);
 }
-//Recgnizign the average color of the hand
+//We get the middle color of the hand, this will be maintained while recognizing the gestures
+
 void average(MyImage *m){
 	m->cap >> m->src;
 	flip(m->src,m->src,1);
@@ -151,7 +152,7 @@ void average(MyImage *m){
 	break;
 	}
 }
-
+//Initialize the bars that allows us to calibrate the camera so that it is of an optimal recognition
 void initTrackbars(){
 	for(int i=0;i<NSAMPLES;i++){
 		c_lower[i][0]=12;
@@ -169,16 +170,15 @@ void initTrackbars(){
 	createTrackbar("Superior3","trackbars",&c_upper[0][2],255);
 }
 
-
+// Copy all the limits read from the tracking bar to all the different limits, this in the outline of the hand
 void normalizeColors(MyImage * myImage){
-	// copy all boundries read from trackbar to all of the different boundries
 	for(int i=1;i<NSAMPLES;i++){
 		for(int j=0;j<3;j++){
 			c_lower[i][j]=c_lower[0][j];	
 			c_upper[i][j]=c_upper[0][j];	
 		}	
 	}
-	// normalize all boundries so that threshold is whithin 0-255
+// normaliza todos los límites para que el umbral esté dentro de 0-255, que es el límite del color de la imagen.
 	for(int i=0;i<NSAMPLES;i++){
 		if((avgColor[i][0]-c_lower[i][0]) <0){
 			c_lower[i][0] = avgColor[i][0] ;
@@ -213,11 +213,13 @@ void produceBinaries(MyImage *m){
 	}
 	medianBlur(m->bw, m->bw,7);
 }
+//Here the control window that regulates the image is initialized.
 
 void initWindows(MyImage m){
     namedWindow("trackbars",CV_WINDOW_KEEPRATIO);
     namedWindow("img1",CV_WINDOW_FULLSCREEN);
 }
+//Displays the window in which the recognition process is displayed,
 
 void showWindows(MyImage m){
 	pyrDown(m.bw,m.bw);
@@ -231,6 +233,7 @@ void showWindows(MyImage m){
 	result.copyTo( m.src(roi));
 	imshow("img1",m.src);	
 }
+//Mantenemos el foco en el contorno de la imagen, 
 
 int findBiggestContour(vector<vector<Point> > contours){
     int indexOfBiggestContour = -1;
@@ -243,6 +246,7 @@ int findBiggestContour(vector<vector<Point> > contours){
     }
     return indexOfBiggestContour;
 }
+//Here we draw a line in the contour of the image in this case of the hand
 
 void myDrawContours(MyImage *m,HandGesture *hg){
 	drawContours(m->src,hg->hullP,hg->cIdx,cv::Scalar(200,0,0),2, 8, vector<Vec4i>(), 0, Point());
@@ -278,7 +282,7 @@ void myDrawContours(MyImage *m,HandGesture *hg){
    	 }
 
 }
-
+//We make the outline of the image for the black and white screen.
 void makeContours(MyImage *m, HandGesture* hg){
 	Mat aBw;
 	pyrUp(m->bw,m->bw);
@@ -306,7 +310,8 @@ void makeContours(MyImage *m, HandGesture* hg){
 	}
 }
 
-//We capture de image.
+//Capture the image and save it, this image saves the average color of the hand, which is used for the process.
+
 int main(){
 	MyImage m(0);		
 	HandGesture hg;
