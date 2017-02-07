@@ -138,6 +138,7 @@ void HandGesture::addNumberToImg(MyImage *m){
 	for(int i=0;i<numbers2Display.size();i++){
 		rectangle(m->src,Point(xPos,yPos),Point(xPos+offset,yPos+offset),numberColor, 2);	
 		putText(m->src, intToString(numbers2Display[i]),Point(xPos+7,yPos+offset-3),fontFace,fontSize,numberColor);
+		cout<<"Number Detected: "<<(intToString(numbers2Display[i]))<<endl;
 		xPos+=40;
 		if(xPos>(m->src.cols-m->src.cols/3.2)){
 			yPos+=40;
