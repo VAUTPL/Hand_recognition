@@ -145,7 +145,7 @@ void average(MyImage *m){
 			roi[j].draw_rectangle(m->src);
 		}	
 		cvtColor(m->src,m->src,COL2ORIGCOL);
-		string imgText=string("Se encontro el color medio");
+		string imgText=string("The middle color of the hand was found.");
 		printText(m->src,imgText);	
 		imshow("img1", m->src);
         if(cv::waitKey(30) >= 0)
