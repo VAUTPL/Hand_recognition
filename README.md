@@ -41,23 +41,14 @@ From a command line in the folder of the repository:
 
 First you have to compile main.cpp
 
+Write in the terminal this simple line.
 
-To compile we have two options:
-
-Option N1:
-
-This line is already included in the makefile
-
-`$  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp 'pkg-config --cflags --libs opencv'`
-
-Option N2:
-
-`$ make`
+`◦ $ make`
 
 
 Then you can run main
 
-`$ ./manos`
+`◦ $ ./manos`
 
 ###Start Recognition.
 ====================
