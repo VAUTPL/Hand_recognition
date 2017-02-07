@@ -48,9 +48,9 @@ Option N1:
 
 This line is already included in the makefile.
 
-Note: Copy the entire line.
+Note: Copy the entire line and use these quotes before pkg-config and after opencv.
 
-`◦ $  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp ```pkg-config --cflags --libs opencv``
+`◦ $  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp ``pkg-config --cflags --libs opencv`
 
 Option N2:
 
