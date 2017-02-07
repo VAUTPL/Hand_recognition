@@ -83,7 +83,7 @@ void waitForPalmCover(MyImage* m){
 	roi.push_back(My_ROI(Point(m->src.cols/2, m->src.rows/1.5),Point(m->src.cols/2+square_len,m->src.rows/1.5+square_len),m->src));
 	roi.push_back(My_ROI(Point(m->src.cols/2.5, m->src.rows/1.8),Point(m->src.cols/2.5+square_len,m->src.rows/1.8+square_len),m->src));
 	
-	
+	//Here you can make the time of the first capture last the desired time, I leave it at 50.
 	for(int i =0;i<50;i++){
     	m->cap >> m->src;
 		flip(m->src,m->src,1);
