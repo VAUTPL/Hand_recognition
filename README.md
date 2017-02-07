@@ -50,7 +50,7 @@ This line is already included in the makefile.
 
 Note: Copy the entire line.
 
-`◦ $  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp ``pkg-config --cflags --libs opencv`
+`◦ $  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp ```pkg-config --cflags --libs opencv``
 
 Option N2:
 
