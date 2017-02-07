@@ -46,9 +46,11 @@ To compile we have two options:
 
 Option N1:
 
-This line is already included in the makefile
+This line is already included in the makefile.
 
-`◦ $  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp `pkg-config --cflags --libs opencv`
+Note: Copy the entire line.
+
+`◦ $  g++ -o manos main.cpp libs/myImage.cpp libs/handGesture.cpp libs/roi.cpp ``pkg-config --cflags --libs opencv`
 
 Option N2:
 
